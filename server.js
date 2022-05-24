@@ -7,6 +7,7 @@ require('dotenv').config()
 const express = require('express');
 const methodOverride = require('method-override');
 const mongoose = require ('mongoose');
+const Tweet = require('./models/tweet')
 const app = express();
 const db = mongoose.connection;
 //___________________
