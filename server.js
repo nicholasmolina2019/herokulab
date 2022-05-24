@@ -54,6 +54,45 @@ app.use(methodOverride('_method'));// allow POST, PUT and DELETE from a form
 app.get('/' , (req, res) => {
   res.send('Hello World!');
 });
+app.post('/tweets', (req, res) => {
+	Tweet.create(req.body, (error, createdTweet) => {
+		res.send(createdTweet);
+	});
+});
+
+// Index
+app.get('/tweets', (req, res) => {
+	Tweet.find({}, (error, foundTweets) => {
+		res.send(foundTweets);
+	});
+});
+
+// Show
+app.get('/tweets/:id', (req, res) => {
+	Tweet.findById(req.params.id, (error, foundTweet) => {
+		res.send(foundTweet);
+	});
+});
+
+// Delete
+app.delete('/tweets/:id', (req, res) => {
+	Tweet.findByIdAndDelete(req.params.id, (error, deletedTweet) => {
+		res.send({ success: true });
+	});
+});
+
+
+// Update
+app.put('/tweets/:id', (req, res) => {
+	Tweet.findByIdAndUpdate(
+		req.params.id,
+		req.body,
+		{ new: true },
+		(error, updatedTweet) => {
+			res.send(updatedTweet);
+		}
+	);
+});
 
 //___________________
 //Listener
